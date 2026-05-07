@@ -1,6 +1,19 @@
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
-import { Mail, MapPin, GraduationCap, HeartHandshake, Users, BookOpen, Target, Facebook, Building2, Instagram, Youtube, Twitter } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  GraduationCap,
+  HeartHandshake,
+  Users,
+  BookOpen,
+  Target,
+  Building2,
+  FacebookIcon,
+  InstagramIcon,
+  YoutubeIcon,
+  TwitterIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
