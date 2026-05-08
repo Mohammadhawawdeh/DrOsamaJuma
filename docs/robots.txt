@@ -55,4 +55,4 @@ Allow: /
 User-agent: YouBot
 Allow: /
 
-Sitemap: https://osamajuma.com/sitemap.xml
+Sitemap: https://drosamajuma.com/sitemap.xml
