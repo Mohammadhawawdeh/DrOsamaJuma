@@ -1,0 +1,142 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: Patch package.json for CI
+        run: |
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+
+            const catalog = {
+              '@vitejs/plugin-react': '^6.0.1',
+              '@tailwindcss/vite': '^4.2.4',
+              '@tailwindcss/typography': '^0.5.15',
+              '@tanstack/react-query': '^5.100.9',
+              '@types/node': '^22.15.0',
+              '@types/react': '^19.2.14',
+              '@types/react-dom': '^19.2.3',
+              'class-variance-authority': '^0.7.1',
+              'clsx': '^2.1.1',
+              'framer-motion': '^12.38.0',
+              'lucide-react': '^1.14.0',
+              'react': '^19.2.6',
+              'react-dom': '^19.2.6',
+              'tailwind-merge': '^3.5.0',
+              'tailwindcss': '^4.2.4',
+              'vite': '^8.0.10',
+              'zod': '^3.25.0',
+            };
+
+            for (const [k, v] of Object.entries(pkg.devDependencies || {})) {
+              if (v === 'catalog:') pkg.devDependencies[k] = catalog[k] || 'latest';
+            }
+            for (const [k, v] of Object.entries(pkg.dependencies || {})) {
+              if (v === 'catalog:') pkg.dependencies[k] = catalog[k] || 'latest';
+            }
+
+            delete pkg.devDependencies['@workspace/api-client-react'];
+            delete pkg.devDependencies['@replit/vite-plugin-cartographer'];
+            delete pkg.devDependencies['@replit/vite-plugin-dev-banner'];
+            delete pkg.devDependencies['@replit/vite-plugin-runtime-error-modal'];
+
+            pkg.name = 'dr-osama-juma';
+            pkg.scripts.build = 'vite build --config vite.config.ci.ts';
+
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+            console.log('Patched package.json for CI');
+          "
+
+      - name: Install dependencies
+        run: |
+          rm -f pnpm-lock.yaml package-lock.json yarn.lock
+          pnpm install --no-frozen-lockfile
+
+      - name: Patch tsconfig.json for CI
+        run: |
+          node -e "
+            const fs = require('fs');
+            const standalone = {
+              include: ['src/**/*'],
+              exclude: ['node_modules', 'build', 'dist', '**/*.test.ts'],
+              compilerOptions: {
+                noEmit: true,
+                jsx: 'preserve',
+                lib: ['esnext', 'dom', 'dom.iterable'],
+                resolveJsonModule: true,
+                allowImportingTsExtensions: true,
+                moduleResolution: 'bundler',
+                module: 'ESNext',
+                target: 'ES2020',
+                strict: false,
+                skipLibCheck: true,
+                types: ['node', 'vite/client'],
+                paths: { '@/*': ['./src/*'] }
+              }
+            };
+            fs.writeFileSync('tsconfig.json', JSON.stringify(standalone, null, 2));
+            console.log('tsconfig.json patched for CI (removed workspace extends/references)');
+          "
+
+      - name: Remove postcss config (handled by vite plugin)
+        run: rm -f postcss.config.js postcss.config.cjs postcss.config.mjs
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Update docs with new assets
+        run: |
+          rm -rf docs/assets
+          cp -r dist/public/assets docs/assets
+
+          # Update asset references in docs/index.html (keep GA + schemas intact)
+          sed -i 's|src="/assets/[^"]*\.js"|src="/assets/main.js"|g' docs/index.html
+          sed -i 's|href="/assets/[^"]*\.css"|href="/assets/main.css"|g' docs/index.html
+
+          echo "docs/assets updated. index.html now references main.js and main.css."
+
+      - name: Commit and push
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add docs/
+          git diff --staged --quiet || (git commit -m "chore: auto-build [skip ci]" && git push)
+
+      - name: Ping search engines with updated sitemap
+        run: |
+          SITEMAP="https://osamajuma.com/sitemap.xml"
+
+          echo "Pinging Google..."
+          curl -s -o /dev/null -w "%{http_code}" \
+            "https://www.google.com/ping?sitemap=${SITEMAP}" && echo " Google OK"
+
+          echo "Pinging Bing..."
+          curl -s -o /dev/null -w "%{http_code}" \
+            "https://www.bing.com/ping?sitemap=${SITEMAP}" && echo " Bing OK"
+
+          echo "Sitemap pings complete."
