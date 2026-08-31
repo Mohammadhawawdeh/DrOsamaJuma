@@ -1,26 +1,18 @@
-/* TEAM */
+/* PROFESSIONAL */
 Name: الدكتور أسامه جمعه
-Title: خبير التربية الخاصة والتعليم الدامج
-Location: عمان، الأردن
-Contact: +962776121914 (WhatsApp)
+Role: خبير التعليم الدامج وتمكين الأشخاص ذوي الإعاقة
+Location: عمّان، الأردن
+Contact: +962776121914
 
-/* EXPERTISE */
-Special Education (التربية الخاصة)
-Inclusive Education (التعليم الدامج)
-IEP Preparation (الخطط التعليمية الفردية)
-Family Counseling (الاستشارات الأسرية)
-Educational Supervision (الإشراف التربوي)
-Teacher Training (تدريب المعلمين)
-Academic Research (البحث الأكاديمي)
-
-/* SOCIAL */
-Facebook: https://www.facebook.com/profile.php?id=61582179417619
-Instagram: https://www.instagram.com/dr.osamajumaa
-YouTube: https://www.youtube.com/@Dr.OsamaJumaa
-TikTok: https://www.tiktok.com/@dr.osama.jomaa
-Twitter/X: https://x.com/Drosamajumaa
+/* TOPICS */
+Inclusive Education
+Special Education
+Disability Empowerment
+Individualized Education Plans (IEP)
+Teacher Training
+Family Educational Guidance
+Accessibility
 
 /* SITE */
-Language: Arabic (العربية)
-Standards: HTML5, CSS3, WCAG 2.1 AA
-Location: Amman, Jordan
+Canonical domain: https://drosamajuma.com
+Language: Arabic (ar-JO)

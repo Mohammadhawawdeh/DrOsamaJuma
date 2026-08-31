@@ -1,0 +1,18 @@
+{
+  "name": "د. أسامه جمعه — التعليم الدامج",
+  "short_name": "د. أسامه جمعه",
+  "description": "التعليم الدامج وتمكين الأشخاص ذوي الإعاقة في الأردن",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffdf8",
+  "theme_color": "#12344d",
+  "lang": "ar-JO",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
