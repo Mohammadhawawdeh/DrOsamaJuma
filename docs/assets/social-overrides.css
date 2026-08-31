@@ -1,0 +1,5 @@
+a[href*="youtube.com"],
+a[href*="tiktok.com"],
+a[href*="x.com"] {
+  display: none !important;
+}
