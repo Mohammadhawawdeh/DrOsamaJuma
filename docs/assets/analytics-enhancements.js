@@ -1,4 +1,26 @@
 (function () {
+  function addInsightsLinks() {
+    var navs = document.querySelectorAll('.desktop-nav, .mobile-menu nav, nav.mobile-nav');
+
+    navs.forEach(function (nav) {
+      if (nav.querySelector('a[href="/insights/"]')) return;
+
+      var link = document.createElement('a');
+      link.href = '/insights/';
+      link.textContent = 'المقالات';
+      link.setAttribute('data-insights-link', 'true');
+
+      var videosLink = nav.querySelector('a[href="/videos/"], a[href="/videos"]');
+      if (videosLink) nav.insertBefore(link, videosLink);
+      else nav.appendChild(link);
+    });
+  }
+
+  addInsightsLinks();
+  document.addEventListener('DOMContentLoaded', addInsightsLinks);
+  window.setTimeout(addInsightsLinks, 1000);
+  window.setTimeout(addInsightsLinks, 3000);
+
   document.addEventListener('click', function (event) {
     var link = event.target.closest && event.target.closest('a');
     if (!link || typeof window.gtag !== 'function') return;
