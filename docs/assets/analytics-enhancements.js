@@ -1,25 +1,32 @@
 (function () {
-  function addInsightsLinks() {
+  function addSiteLinks() {
     var navs = document.querySelectorAll('.desktop-nav, .mobile-menu nav, nav.mobile-nav');
 
     navs.forEach(function (nav) {
-      if (nav.querySelector('a[href="/insights/"]')) return;
-
-      var link = document.createElement('a');
-      link.href = '/insights/';
-      link.textContent = 'المقالات';
-      link.setAttribute('data-insights-link', 'true');
-
       var videosLink = nav.querySelector('a[href="/videos/"], a[href="/videos"]');
-      if (videosLink) nav.insertBefore(link, videosLink);
-      else nav.appendChild(link);
+      if (!nav.querySelector('a[href="/cv/"]')) {
+        var cvLink = document.createElement('a');
+        cvLink.href = '/cv/';
+        cvLink.textContent = 'السيرة الذاتية';
+        cvLink.setAttribute('data-cv-link', 'true');
+        if (videosLink) nav.insertBefore(cvLink, videosLink);
+        else nav.appendChild(cvLink);
+      }
+      if (!nav.querySelector('a[href="/insights/"]')) {
+        var insightsLink = document.createElement('a');
+        insightsLink.href = '/insights/';
+        insightsLink.textContent = 'المقالات';
+        insightsLink.setAttribute('data-insights-link', 'true');
+        if (videosLink) nav.insertBefore(insightsLink, videosLink);
+        else nav.appendChild(insightsLink);
+      }
     });
   }
 
-  addInsightsLinks();
-  document.addEventListener('DOMContentLoaded', addInsightsLinks);
-  window.setTimeout(addInsightsLinks, 1000);
-  window.setTimeout(addInsightsLinks, 3000);
+  addSiteLinks();
+  document.addEventListener('DOMContentLoaded', addSiteLinks);
+  window.setTimeout(addSiteLinks, 1000);
+  window.setTimeout(addSiteLinks, 3000);
 
   document.addEventListener('click', function (event) {
     var link = event.target.closest && event.target.closest('a');
