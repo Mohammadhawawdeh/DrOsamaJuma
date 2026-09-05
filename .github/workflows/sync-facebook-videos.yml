@@ -1,9 +1,9 @@
 name: Sync Facebook videos
 
 on:
-  schedule:
-    # Runs once a day. GitHub may delay this by up to ~30 minutes at busy times.
-    - cron: "0 6 * * *"
+  # Disabled for now: the videos page uses the Facebook Page Plugin embed
+  # instead (no Graph API token was ever set up). Re-add a `schedule:`
+  # trigger here if FB_PAGE_ACCESS_TOKEN gets configured later.
   workflow_dispatch: {}
 
 permissions:
