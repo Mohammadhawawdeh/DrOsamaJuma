@@ -1,0 +1,54 @@
+name: Sync Facebook videos
+
+on:
+  schedule:
+    # Runs once a day. GitHub may delay this by up to ~30 minutes at busy times.
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run sync script
+        id: sync
+        env:
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+        run: node scripts/sync-facebook-videos.mjs
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open pull request with new videos
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "Add new Facebook video(s) [automated]"
+          branch: auto/facebook-videos
+          delete-branch: true
+          title: "New Facebook video(s) found — review and merge"
+          body: |
+            Opened automatically by the daily Facebook video sync.
+
+            Please open the diff on `docs/videos/index.html` and check the
+            generated titles read well before merging — merging this PR
+            deploys it to the live site via GitHub Pages.
+          labels: automated
