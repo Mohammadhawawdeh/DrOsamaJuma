@@ -1,5 +1,6 @@
 (function () {
   function addSiteLinks() {
+    if (location.pathname.indexOf('/en/') === 0 || location.pathname === '/en') return;
     var navs = document.querySelectorAll('.desktop-nav, .mobile-menu nav, nav.mobile-nav');
 
     navs.forEach(function (nav) {
