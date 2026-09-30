@@ -1,0 +1,187 @@
+{
+  "summary": {
+    "health_score": 88,
+    "business_type": "Individual expert consultant (inclusive/special education) - hybrid Agency + Local-Service, now bilingual (Arabic + English, 96 pages)",
+    "top_findings": [
+      "No security response headers (HSTS, X-Content-Type-Options, X-Frame-Options, CSP) on any page - Worker script drafted, needs manual Cloudflare deploy",
+      "31 of 36 English articles (and their Arabic counterparts) run under 300 words - a real content-depth gap, not auto-fixed",
+      "English homepage was missing FAQPage schema that the Arabic homepage had - fixed this session",
+      "Both CV pages (ar+en) were missing Twitter Card meta - fixed this session",
+      "llms.txt was Arabic-only, silently excluding the 48-page English site from AI-agent discovery - fixed this session",
+      "No live Core Web Vitals field data (no Google/CrUX API configured, Unlighthouse wrapper broken on Windows)"
+    ],
+    "quick_wins": [
+      "Deploy cloudflare-security-headers-worker.js via Cloudflare dashboard (drafted, committed, not yet applied)",
+      "Configure free Moz API key to unlock a scoreable backlink profile",
+      "Configure Google API credentials for real CWV field data",
+      "Plan an editorial pass for the 31 thin English articles"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 90,
+      "what_works": [
+        "robots.txt clean with correct sitemap reference",
+        "sitemap.xml: 96/96 URLs match every page on disk exactly (grew from 48 with the English rollout)",
+        "HTTP to HTTPS redirect confirmed working (301, single hop)",
+        "Canonical tags self-referencing on 96/96 pages",
+        "No noindex anywhere; index,follow confirmed on all 96 pages",
+        "Fully static/server-rendered: 37KB+ of real content in raw HTML with zero JS dependency",
+        "IndexNow key file confirmed live (83d1abf2643cd2d31d4d355f5e19ce73.txt, 200 OK); all 96 current URLs submitted to IndexNow API this session (200 OK)",
+        "Bing Webmaster Tools: site verified, API key configured and tested live (0 known backlinks - real data point, not an error)",
+        "Bidirectional hreflang validated across all 96 pages (ar-JO/en/x-default), 0 issues",
+        "0 duplicate titles, 0 duplicate meta descriptions, exactly 1 H1 per page across all 96 pages"
+      ],
+      "findings": [
+        {
+          "title": "No security response headers on any page",
+          "severity": "High",
+          "description": "curl -I against the live homepage shows no Strict-Transport-Security, X-Content-Type-Options, X-Frame-Options, or Content-Security-Policy headers. GitHub Pages cannot serve custom headers natively.",
+          "recommendation": "Deploy cloudflare-security-headers-worker.js (drafted and committed at repo root) via Cloudflare dashboard - Workers & Pages, routed to drosamajuma.com/*."
+        },
+        {
+          "title": "No live Google Search Console / CrUX / GA4 data configured",
+          "severity": "Medium",
+          "description": "No OAuth token or service account configured this session; Unlighthouse extension wrapper also fails on this Windows environment (npx subprocess resolution bug).",
+          "recommendation": "Set up Google API credentials to unlock real indexation status and field Core Web Vitals data."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 72,
+      "what_works": [
+        "37 English + 37 Arabic pages under /insights/ (36 articles + hub each), covering IEP, autism, ADHD, teacher training, family guidance, GCC countries, disability-specific guides, and 5 self-authored research pieces",
+        "Strong E-E-A-T: named credentialed author (PhD, University of Jordan), consistent Person schema via canonical @id, citations to UN/UNESCO/UNICEF/WHO/Jordanian-government sources on 20+ articles",
+        "Every article carries a clear non-clinical disclaimer",
+        "0 duplicate content detected across 96 pages"
+      ],
+      "findings": [
+        {
+          "title": "31 of 36 English articles under 300 words (median 255)",
+          "severity": "Medium",
+          "description": "Both language versions follow a compact 3-section, 2-paragraph template by design; Arabic median is even lower at 197 words. Not thin in the spam-policy sense (genuine expert content, real citations), but likely limits ranking depth and AI-citation surface area.",
+          "recommendation": "Editorial pass to add a 4th section or more practical detail per article. Do not bulk-expand with AI filler - that trades a real gap for a spam-policy risk."
+        },
+        {
+          "title": "No case studies or testimonials",
+          "severity": "Medium",
+          "description": "The site has zero client-facing proof-of-outcome content.",
+          "recommendation": "Produce 2-3 anonymized case studies once client permission is obtained. Cannot be fabricated."
+        },
+        {
+          "title": "No downloadable practical asset",
+          "severity": "Medium",
+          "description": "No real downloadable tool (e.g., IEP goal-writing template) exists.",
+          "recommendation": "Build a flagship downloadable IEP template/checklist, available in both languages."
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 96,
+      "what_works": [
+        "0 duplicate titles, 0 duplicate meta descriptions across 96 pages",
+        "Exactly 1 H1 per page, 96/96",
+        "34 English article titles shortened this session from 61-105 chars down to <=60 chars for SERP display",
+        "Insights hub links to all 36 articles (0 orphans); homepage reaches every core page + hub in 1 click"
+      ],
+      "findings": []
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 90,
+      "what_works": [
+        "Person, ProfilePage, Article, BreadcrumbList, FAQPage, CollectionPage all present as valid, parseable JSON-LD (0 parse errors across 96 pages)",
+        "Cross-referenced via @id with a single canonical Person node (referenced, not duplicated, across all English pages)",
+        "Article citation arrays present and verbatim-preserved on all research-backed articles"
+      ],
+      "findings": [
+        {
+          "title": "English homepage was missing FAQPage schema",
+          "severity": "Medium",
+          "description": "The Arabic homepage had FAQPage JSON-LD matching its visible FAQ section; the English homepage had the identical visible FAQ content (already translated) but no matching schema.",
+          "recommendation": "Fixed this session - added FAQPage JSON-LD to docs/en/index.html matching the Arabic version's shape."
+        },
+        {
+          "title": "Both CV pages missing Twitter Card meta",
+          "severity": "Low",
+          "description": "docs/cv/index.html and docs/en/cv/index.html were the only 2 of 96 pages missing twitter:card/twitter:title/twitter:description/twitter:image.",
+          "recommendation": "Fixed this session - added matching Twitter Card tags to both pages."
+        }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": null,
+      "what_works": [
+        "JS deferred/async, no known render-blocking scripts",
+        "Fully static HTML architecture likely performs well but is unmeasured this session"
+      ],
+      "findings": [
+        {
+          "title": "No field CWV data available",
+          "severity": "Medium",
+          "description": "No CrUX/PageSpeed API configured. Unlighthouse extension's wrapper script (unlighthouse_run.py) fails on this Windows environment with a WinError 2 (npx subprocess resolution issue), so no lab data either this session.",
+          "recommendation": "Configure Google API credentials to get real field data, or fix/replace the Unlighthouse wrapper for Windows."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 78,
+      "what_works": [
+        "Fully static HTML with zero JS dependency - the single biggest AI-crawler-friendliness factor",
+        "robots.txt allows all crawlers including AI bots (GPTBot, ClaudeBot, PerplexityBot, etc.) - business choice, not a defect"
+      ],
+      "findings": [
+        {
+          "title": "llms.txt was Arabic-only",
+          "severity": "Medium",
+          "description": "The entire 48-page English site (added across 8 commits this session) was invisible to AI agents relying on llms.txt for site discovery.",
+          "recommendation": "Fixed this session - added a full English section to docs/llms.txt with links to all core English pages and the article index."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 100,
+      "what_works": [
+        "Only 4 img tags site-wide (otherwise CSS/SVG-icon based) - all 4 have descriptive, language-appropriate alt text",
+        "New OG social card (1200x630, 49KB WebP) built and wired into both homepages this session"
+      ],
+      "findings": []
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {"name": "Phase 1: Critical Fixes", "timeframe": "Week 1", "items": [
+        "Add FAQPage schema to English homepage - DONE",
+        "Add Twitter Card meta to both CV pages - DONE",
+        "Add English section to llms.txt - DONE",
+        "Shorten 34 English article titles for SERP display - DONE",
+        "Submit all 96 URLs to IndexNow - DONE"
+      ]},
+      {"name": "Phase 2: High-Impact Improvements", "timeframe": "Weeks 2-3", "items": [
+        "Deploy cloudflare-security-headers-worker.js via Cloudflare dashboard",
+        "Configure free Moz API key for backlink profile scoring",
+        "Configure Google API credentials for CWV field data"
+      ]},
+      {"name": "Phase 3: Content & Authority", "timeframe": "Month 2", "items": [
+        "Editorial pass on 31 thin English articles (and Arabic counterparts)",
+        "Produce 2-3 case studies",
+        "Build downloadable IEP template (bilingual)"
+      ]},
+      {"name": "Phase 4: Monitoring & Iteration", "timeframe": "Ongoing", "items": [
+        "Re-run /seo-backlinks monthly once Moz is configured",
+        "Re-run /seo-hreflang after any new page batch",
+        "Re-submit new/changed URLs to IndexNow on each publish"
+      ]}
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/"
+  }
+}

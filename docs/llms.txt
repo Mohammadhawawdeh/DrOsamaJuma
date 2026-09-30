@@ -33,7 +33,27 @@
 - [التدخل المبكر التربوي](https://drosamajuma.com/tamhid-mubakir)
 - [مكتبة الفيديوهات](https://drosamajuma.com/videos) — 60 فيديو توعوياً مصنفاً من الصفحة الرسمية
 - [السيرة الذاتية](https://drosamajuma.com/cv) — المؤهلات، الخبرات، والأبحاث المنشورة
-- [المقالات](https://drosamajuma.com/insights) — أدلة تربوية للأسر والمعلمين
+- [المقالات](https://drosamajuma.com/insights) — أدلة تربوية للأسر والمعلمين، 36 مقالاً
+
+## English Version
+The site is also fully available in English at https://drosamajuma.com/en/,
+covering the same scope: inclusive education, IEP planning, teacher training,
+institutional consulting, family guidance, autism and ADHD educational
+support, early intervention, and 36 practical articles at
+https://drosamajuma.com/en/insights/. Content is non-clinical; medical or
+psychological diagnosis is the responsibility of licensed professionals.
+
+- [Inclusive Education](https://drosamajuma.com/en/taleem-damej/)
+- [Individualized Education Plan (IEP)](https://drosamajuma.com/en/iep/)
+- [Teacher Training](https://drosamajuma.com/en/teacher-training/)
+- [Institutional Consulting](https://drosamajuma.com/en/institutional-consulting/)
+- [Family Guidance](https://drosamajuma.com/en/family-guidance/)
+- [Autism Educational Support](https://drosamajuma.com/en/autism/)
+- [ADHD Educational Support](https://drosamajuma.com/en/adhd/)
+- [Early Educational Intervention](https://drosamajuma.com/en/tamhid-mubakir/)
+- [Video Library](https://drosamajuma.com/en/videos/)
+- [CV](https://drosamajuma.com/en/cv/)
+- [Articles](https://drosamajuma.com/en/insights/) — 36 practical guides for families, teachers, and institutions
 
 ## حسابات رسمية
 - [Instagram](https://www.instagram.com/dr.osamajumaa)
