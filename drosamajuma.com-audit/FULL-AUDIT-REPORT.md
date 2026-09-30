@@ -3,11 +3,11 @@
 **Date:** 2026-09-30 (re-verified against the live site after all fixes deployed)
 **Scope:** All 96 live pages (48 Arabic + 48 English) — homepage, 9 core service pages, insights hub, 36 insights articles, per language.
 
-## SEO Health Score: 94/100
+## SEO Health Score: 97/100
 
 | Category | Weight | Score | Status |
 |---|---|---|---|
-| Technical SEO | 22% | 90/100 | pass |
+| Technical SEO | 22% | 98/100 | pass (after fix) |
 | Content Quality | 23% | 92/100 | pass (after fix) |
 | On-Page SEO | 20% | 96/100 | pass |
 | Schema / Structured Data | 10% | 90/100 | pass (after fix) |
@@ -19,7 +19,7 @@ Performance is excluded from the weighted average (no field-data source availabl
 
 ## Executive Summary
 
-Every mechanically-fixable gap found in this audit has been fixed, deployed, and re-verified live: schema, meta tags, AI-discovery file, SERP title lengths, and content depth across both languages. All 96 pages pass hreflang bidirectionality, tag balance, and JSON-LD validation with zero issues. The two remaining open items — security response headers and CWV field data — both require access this session doesn't have (a Cloudflare dashboard login, and Google API credentials) and are queued, not abandoned.
+Every mechanically-fixable gap found in this audit has been fixed, deployed, and re-verified live: schema, meta tags, AI-discovery file, SERP title lengths, content depth across both languages, and security response headers. All 96 pages pass hreflang bidirectionality, tag balance, and JSON-LD validation with zero issues. The only remaining open item — CWV field data — needs Google API credentials this session doesn't have.
 
 ### Status of every issue found
 1. ~~English homepage missing `FAQPage` JSON-LD~~ — **FIXED, verified live**
@@ -28,7 +28,7 @@ Every mechanically-fixable gap found in this audit has been fixed, deployed, and
 4. ~~`llms.txt` was Arabic-only~~ — **FIXED, verified live**
 5. ~~IndexNow key file check~~ — corrected a false-negative; key was already live, all 96+31+34 URLs (including re-submissions after content edits) submitted to the API
 6. ~~31 English + 34 Arabic articles under 300 words~~ — **FIXED, verified live**. English median 255→340, Arabic median 197→313
-7. Security response headers (HSTS, CSP, etc.) — **in progress**, blocked on Cloudflare dashboard login (browser session opened, awaiting your sign-in)
+7. ~~Security response headers (HSTS, CSP, etc.)~~ — **FIXED, verified live**. Deployed via `wrangler deploy` (OAuth login through the browser pane; the Cloudflare dashboard's built-in code editor wasn't clickable by browser automation, so the CLI path was used instead). Worker `drosamajuma-security-headers` routed to `drosamajuma.com/*`; confirmed on homepage, articles, CV pages, videos, and 404s with site content unaffected.
 8. CWV field data — **not measured**, no Google API credentials configured this session
 
 ## Technical SEO (90/100)
@@ -39,7 +39,7 @@ Every mechanically-fixable gap found in this audit has been fixed, deployed, and
 - Canonical tags self-referencing on 96/96 pages
 - Hreflang re-validated post-expansion: 96/96 pages, full bidirectionality, 0 issues
 - IndexNow key file confirmed live (`83d1abf2643cd2d31d4d355f5e19ce73.txt`); all touched URLs (96 initial + 31 English re-edits + 34 Arabic re-edits) submitted to the API across this session
-- **Gap: no security response headers** (HSTS, CSP, X-Content-Type-Options, Referrer-Policy) — confirmed still absent on the live homepage via `curl -I`. GitHub Pages can't set these from the repo; a Cloudflare Worker script is drafted and committed (`cloudflare-security-headers-worker.js`). Deployment started this session (Cloudflare login opened in-browser) but requires your sign-in to proceed.
+- **Security response headers deployed and verified live**: HSTS, CSP (`frame-ancestors 'none'`, superseding the older X-Frame-Options), Permissions-Policy, Referrer-Policy, and X-Content-Type-Options all confirmed present via `curl -I` across the homepage, articles, CV pages, videos, and 404 responses. GitHub Pages can't set these from the repo, so a Cloudflare Worker (`drosamajuma-security-headers`) was deployed via `wrangler` and routed to `drosamajuma.com/*`. Site content unaffected - the real GitHub Pages origin content passes through the Worker unchanged on every page type checked.
 
 ## Content Quality (92/100, after fix)
 
@@ -81,16 +81,16 @@ Only 4 `<img>` tags site-wide, all with descriptive alt text. OG card (1200×630
 ## Critical Issues
 *None.*
 
-## High Priority (in progress)
-1. Deploy the Cloudflare Worker for security headers — drafted, browser session opened to Cloudflare login this session, **awaiting your sign-in** to continue (Workers & Pages → create Worker → paste script → route to `drosamajuma.com/*`).
+## High Priority
+*None remaining.*
 
 ## Medium Priority (fix within 1 month)
-2. Configure Google API credentials for real CWV field data.
-3. Configure free Moz API key to unlock a scoreable backlink profile.
+1. Configure Google API credentials for real CWV field data.
+2. Configure free Moz API key to unlock a scoreable backlink profile.
 
 ## Low Priority (backlog)
-4. Case studies/testimonials and a downloadable practical asset (bilingual IEP template) — content-authority work, not a technical gap.
-5. Optional AI-discovery files (`ai-plugin.json`, `ai-catalog.json`, `security.txt`).
+3. Case studies/testimonials and a downloadable practical asset (bilingual IEP template) — content-authority work, not a technical gap.
+4. Optional AI-discovery files (`ai-plugin.json`, `ai-catalog.json`, `security.txt`).
 
 ## Full Fix Log (this engagement)
 | Fix | Scope | Verified |
@@ -103,4 +103,4 @@ Only 4 `<img>` tags site-wide, all with descriptive alt text. OG card (1200×630
 | Submitted all touched URLs to IndexNow | 96 + 31 + 34 URLs | 200 OK each batch |
 | Expanded thin English articles (4th section) | 31 pages | live, median 340 words |
 | Expanded thin Arabic articles (4th section) | 34 pages | live, median 313 words |
-| Drafted Cloudflare Worker for security headers | repo root | not yet deployed |
+| Deployed Cloudflare Worker for security headers | `drosamajuma.com/*` route | live, verified via `curl -I` across 5 page types + 404 |

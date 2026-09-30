@@ -9,7 +9,7 @@
 - [x] Submit all 96 sitemap URLs to IndexNow API (key file confirmed live; corrects a false-negative finding from the earlier technical pass)
 
 ## Phase 2: High-Impact Improvements (this week)
-- [ ] Deploy `cloudflare-security-headers-worker.js` via Cloudflare dashboard (Workers & Pages → route to `drosamajuma.com/*`), or apply the same headers as Transform Rules — cannot be done from the repo, needs manual dashboard action
+- [x] Deploy `cloudflare-security-headers-worker.js` — done via `wrangler deploy` (OAuth login through the browser pane, since the Cloudflare dashboard's Monaco code editor wasn't clickable by browser automation in this session). Worker `drosamajuma-security-headers` is live, routed to `drosamajuma.com/*`. Verified live: HSTS, CSP (with `frame-ancestors 'none'` superseding the older X-Frame-Options), Permissions-Policy, Referrer-Policy, and X-Content-Type-Options all present across the homepage, articles, CV pages, videos, and 404s. Site content unaffected — confirmed real GitHub Pages content still serving correctly through the Worker on every page type checked.
 
 ## Phase 3: Content & Authority (month 2)
 - [x] Editorial pass to expand the 31 English articles under 300 words — each got a genuine 4th section (topic-specific practical guidance, not filler). Median word count: 255 → 340, minimum: 205 → 310. All 96 URLs + the 31 updated ones re-submitted to IndexNow.

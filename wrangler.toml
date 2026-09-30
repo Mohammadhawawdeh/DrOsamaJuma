@@ -1,0 +1,11 @@
+# Config for the live "drosamajuma-security-headers" Cloudflare Worker.
+# Redeploy after editing cloudflare-security-headers-worker.js with:
+#   wrangler login   (one-time OAuth, opens a browser)
+#   wrangler deploy
+name = "drosamajuma-security-headers"
+main = "cloudflare-security-headers-worker.js"
+compatibility_date = "2026-09-30"
+
+routes = [
+  { pattern = "drosamajuma.com/*", zone_name = "drosamajuma.com" }
+]
