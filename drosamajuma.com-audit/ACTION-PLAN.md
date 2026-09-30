@@ -12,7 +12,8 @@
 - [ ] Deploy `cloudflare-security-headers-worker.js` via Cloudflare dashboard (Workers & Pages → route to `drosamajuma.com/*`), or apply the same headers as Transform Rules — cannot be done from the repo, needs manual dashboard action
 
 ## Phase 3: Content & Authority (month 2)
-- [ ] Editorial pass to expand the 31 English articles under 300 words (median currently 255) — and their Arabic counterparts (median 197 words) — with additional practical detail, examples, or a 4th section per article. Not a mechanical fix; needs genuine content work to avoid spam-policy risk from filler expansion.
+- [x] Editorial pass to expand the 31 English articles under 300 words — each got a genuine 4th section (topic-specific practical guidance, not filler). Median word count: 255 → 340, minimum: 205 → 310. All 96 URLs + the 31 updated ones re-submitted to IndexNow.
+- [ ] Same editorial pass on the Arabic counterparts (median 197 words) — not yet done, same rationale applies
 - [ ] Configure free Moz API key to unlock a scoreable backlink profile (current: 0 known backlinks via live Bing Webmaster query — real but thin data for a new/small site)
 
 ## Phase 4: Monitoring & Iteration (ongoing)
