@@ -1,6 +1,6 @@
 {
   "summary": {
-    "health_score": 88,
+    "health_score": 94,
     "business_type": "Individual expert consultant (inclusive/special education) - hybrid Agency + Local-Service, now bilingual (Arabic + English, 96 pages)",
     "top_findings": [
       "No security response headers (HSTS, X-Content-Type-Options, X-Frame-Options, CSP) on any page - Worker script drafted, needs manual Cloudflare deploy",
