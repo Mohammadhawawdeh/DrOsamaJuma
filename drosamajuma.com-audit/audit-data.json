@@ -59,10 +59,11 @@
       ],
       "findings": [
         {
-          "title": "31 of 36 English articles under 300 words (median 255)",
+          "title": "31 of 36 English + 34 of 36 Arabic articles were under 300 words - FIXED",
           "severity": "Medium",
-          "description": "Both language versions follow a compact 3-section, 2-paragraph template by design; Arabic median is even lower at 197 words. Not thin in the spam-policy sense (genuine expert content, real citations), but likely limits ranking depth and AI-citation surface area.",
-          "recommendation": "Editorial pass to add a 4th section or more practical detail per article. Do not bulk-expand with AI filler - that trades a real gap for a spam-policy risk."
+          "outcome": "fixed",
+          "description": "Both language versions followed a compact 3-section, 2-paragraph template by design (English median 255, Arabic median 197). Not thin in the spam-policy sense, but likely limited ranking depth and AI-citation surface area.",
+          "recommendation": "Added a genuine 4th section (topic-specific practical guidance, not filler) to every thin article in both languages. English median: 255 -> 340 (min 310). Arabic median: 197 -> 313 (min 300). All updated URLs re-submitted to IndexNow."
         },
         {
           "title": "No case studies or testimonials",
@@ -169,7 +170,7 @@
         "Configure Google API credentials for CWV field data"
       ]},
       {"name": "Phase 3: Content & Authority", "timeframe": "Month 2", "items": [
-        "Editorial pass on 31 thin English articles (and Arabic counterparts)",
+        "Editorial pass on 31 thin English + 34 thin Arabic articles - DONE",
         "Produce 2-3 case studies",
         "Build downloadable IEP template (bilingual)"
       ]},

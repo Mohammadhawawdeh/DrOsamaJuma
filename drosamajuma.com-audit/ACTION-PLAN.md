@@ -13,7 +13,7 @@
 
 ## Phase 3: Content & Authority (month 2)
 - [x] Editorial pass to expand the 31 English articles under 300 words — each got a genuine 4th section (topic-specific practical guidance, not filler). Median word count: 255 → 340, minimum: 205 → 310. All 96 URLs + the 31 updated ones re-submitted to IndexNow.
-- [ ] Same editorial pass on the Arabic counterparts (median 197 words) — not yet done, same rationale applies
+- [x] Same editorial pass on the 34 thin Arabic articles (30 regular + 4 research, plus 3 that were only thin in Arabic: adhd-classroom-strategies, autism-classroom-support, choose-inclusive-school). Median word count: 197 → 313, minimum: 162 → 300. All 34 updated URLs submitted to IndexNow. Content quality gap from the full audit is now closed on both languages.
 - [ ] Configure free Moz API key to unlock a scoreable backlink profile (current: 0 known backlinks via live Bing Webmaster query — real but thin data for a new/small site)
 
 ## Phase 4: Monitoring & Iteration (ongoing)
